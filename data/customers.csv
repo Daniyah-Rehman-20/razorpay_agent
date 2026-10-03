@@ -1,0 +1,11 @@
+customer_id,name,phone,plan,amount_due,currency,due_date,failure_reason,payment_method,instrument_last4,attempt_count,language,verification_answer,retry_result,scenario,expected_outcome,status
+C001,Aarav Mehta,+91XXXXXXXXXX,Razorpay Pro Plan,1499,INR,2026-10-01,your card has expired,card,4242,0,English,1990,success,Expired card and cooperative,RECOVERED,pending
+C002,Neha Kapoor,+91XXXXXXXXXX,RazorpayX Payroll Starter,2999,INR,2026-09-30,your bank account had insufficient balance when the UPI AutoPay debit was attempted,UPI AutoPay,8812,1,English,1988,fail,Insufficient funds and wants a later date,PROMISE_TO_PAY,pending
+C003,Rohan Verma,+91XXXXXXXXXX,Razorpay Pro Plan,1499,INR,2026-10-02,your bank declined the transaction,card,1107,0,Hinglish,1993,fail,Bank declined and wants a link,LINK_SENT,pending
+C004,Sneha Iyer,+91XXXXXXXXXX,Razorpay POS Rental,3499,INR,2026-09-29,the debit did not go through,card,5521,1,English,1985,success,Disputes the charge,DISPUTE,pending
+C005,Karan Malhotra,+91XXXXXXXXXX,Razorpay Pro Plan,1499,INR,2026-10-01,your UPI mandate was paused,UPI AutoPay,3390,0,English,1992,success,Says already cancelled,CANCELLED_CLAIM,pending
+C006,Pooja Nair,+91XXXXXXXXXX,RazorpayX Payroll Starter,2999,INR,2026-09-28,your card has expired,card,9034,2,English,1987,success,Wrong person answers,WRONG_NUMBER,pending
+C007,Vikram Singh,+91XXXXXXXXXX,Razorpay Pro Plan,1499,INR,2026-10-02,the transaction limit was exceeded,UPI AutoPay,2276,0,English,1995,success,Fails identity verification,VERIFICATION_FAILED,pending
+C008,Ananya Desai,+91XXXXXXXXXX,Razorpay POS Rental,3499,INR,2026-09-30,your bank account had insufficient balance,card,6648,2,English,1991,success,Hostile and says stop calling,DNC,pending
+C009,Imran Qureshi,+91XXXXXXXXXX,Razorpay Pro Plan,1499,INR,2026-10-01,your card has expired,card,7715,0,English,1989,success,Off-topic and prompt-injection tester,RECOVERED,pending
+C010,Divya Reddy,+91XXXXXXXXXX,RazorpayX Payroll Starter,2999,INR,2026-10-02,your bank declined the transaction,card,3003,0,English,1994,success,Voicemail or no answer,VOICEMAIL,pending

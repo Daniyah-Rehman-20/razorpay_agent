@@ -1,0 +1,107 @@
+[
+  {
+    "name": "verify_identity",
+    "description": "Check the customer's year of birth. Call once per spoken answer. Never reveals details.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "customer_id": {"type": "string"},
+        "answer": {"type": "string", "description": "What the customer said, e.g. 1991"}
+      },
+      "required": ["customer_id", "answer"]
+    }
+  },
+  {
+    "name": "get_payment_details",
+    "description": "Get plan, amount, due date, failure reason, payment method. Only works after successful verification.",
+    "parameters": {
+      "type": "object",
+      "properties": {"customer_id": {"type": "string"}},
+      "required": ["customer_id"]
+    }
+  },
+  {
+    "name": "retry_payment",
+    "description": "Retry the saved payment method once. Requires verification and the customer's explicit yes.",
+    "parameters": {
+      "type": "object",
+      "properties": {"customer_id": {"type": "string"}},
+      "required": ["customer_id"]
+    }
+  },
+  {
+    "name": "send_payment_link",
+    "description": "Send a secure link by SMS to update the payment method. Requires verification and explicit yes.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "customer_id": {"type": "string"},
+        "channel": {"type": "string", "enum": ["sms"]}
+      },
+      "required": ["customer_id"]
+    }
+  },
+  {
+    "name": "schedule_retry",
+    "description": "Schedule a retry on a date from tomorrow up to 7 days from today.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "customer_id": {"type": "string"},
+        "date": {"type": "string", "description": "ISO date yyyy-mm-dd"}
+      },
+      "required": ["customer_id", "date"]
+    }
+  },
+  {
+    "name": "request_callback",
+    "description": "Record a preferred time to call back.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "customer_id": {"type": "string"},
+        "time_window": {"type": "string", "description": "e.g. tomorrow after 5 pm"}
+      },
+      "required": ["customer_id", "time_window"]
+    }
+  },
+  {
+    "name": "escalate_to_human",
+    "description": "Create a ticket for a human agent: disputes, cancellations, already-paid claims, exceptions, requests for a human.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "customer_id": {"type": "string"},
+        "reason": {"type": "string"}
+      },
+      "required": ["customer_id", "reason"]
+    }
+  },
+  {
+    "name": "mark_dnc",
+    "description": "Permanently stop contacting this customer. Use when they ask not to be called.",
+    "parameters": {
+      "type": "object",
+      "properties": {"customer_id": {"type": "string"}},
+      "required": ["customer_id"]
+    }
+  },
+  {
+    "name": "log_outcome",
+    "description": "Record the final outcome. Must be called before ending every call.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "customer_id": {"type": "string"},
+        "outcome": {
+          "type": "string",
+          "enum": ["RECOVERED","LINK_SENT","PROMISE_TO_PAY","RETRY_FAILED","ESCALATED","DISPUTE",
+                   "CANCELLED_CLAIM","VERIFICATION_FAILED","WRONG_NUMBER","NO_CONTACT","VOICEMAIL",
+                   "DNC","NO_RESPONSE","DROPPED","TECH_ERROR"]
+        },
+        "notes": {"type": "string", "description": "One short factual sentence. No sensitive data."}
+      },
+      "required": ["customer_id", "outcome"]
+    }
+  }
+]

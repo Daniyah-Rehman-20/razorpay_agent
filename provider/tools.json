@@ -1,0 +1,279 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "verify_identity",
+      "description": "Check the customer's year of birth. Call once per spoken answer. Never reveals details.",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{3}$",
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "answer": {
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Answer",
+            "type": "string"
+          }
+        },
+        "required": [
+          "customer_id",
+          "answer"
+        ],
+        "title": "Verify",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_payment_details",
+      "description": "Get plan, amount, due date, failure reason, payment method. Only works after successful verification.",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{3}$",
+            "title": "Customer Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "title": "CustomerRequest",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "retry_payment",
+      "description": "Retry the saved payment method once. Requires verification and the customer's explicit yes. Pass consent=true only after an explicit yes.",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{3}$",
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "consent": {
+            "const": true,
+            "title": "Consent",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "customer_id",
+          "consent"
+        ],
+        "title": "Consent",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "send_payment_link",
+      "description": "Send a secure link by SMS to update the payment method. Requires verification and explicit yes. Pass consent=true only after an explicit yes.",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{3}$",
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "consent": {
+            "const": true,
+            "title": "Consent",
+            "type": "boolean"
+          },
+          "channel": {
+            "const": "sms",
+            "default": "sms",
+            "title": "Channel",
+            "type": "string"
+          }
+        },
+        "required": [
+          "customer_id",
+          "consent"
+        ],
+        "title": "Link",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "schedule_retry",
+      "description": "Schedule a retry on a date from tomorrow up to 7 days from today. Pass consent=true only after an explicit yes.",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{3}$",
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "consent": {
+            "const": true,
+            "title": "Consent",
+            "type": "boolean"
+          },
+          "date": {
+            "maxLength": 10,
+            "title": "Date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "customer_id",
+          "consent",
+          "date"
+        ],
+        "title": "Schedule",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "request_callback",
+      "description": "Record a preferred time to call back.",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{3}$",
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "time_window": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Time Window",
+            "type": "string"
+          }
+        },
+        "required": [
+          "customer_id",
+          "time_window"
+        ],
+        "title": "Callback",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "escalate_to_human",
+      "description": "Create a ticket for a human agent: disputes, cancellations, already-paid claims, exceptions, requests for a human.",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{3}$",
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "reason": {
+            "maxLength": 300,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "customer_id",
+          "reason"
+        ],
+        "title": "Escalate",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "mark_dnc",
+      "description": "Permanently stop contacting this customer. Use when they ask not to be called.",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{3}$",
+            "title": "Customer Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "title": "CustomerRequest",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "log_outcome",
+      "description": "Record the final outcome. Must be called before ending every call.",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "customer_id": {
+            "pattern": "^C\\d{3}$",
+            "title": "Customer Id",
+            "type": "string"
+          },
+          "outcome": {
+            "enum": [
+              "RECOVERED",
+              "LINK_SENT",
+              "PROMISE_TO_PAY",
+              "RETRY_FAILED",
+              "ESCALATED",
+              "DISPUTE",
+              "CANCELLED_CLAIM",
+              "VERIFICATION_FAILED",
+              "WRONG_NUMBER",
+              "NO_CONTACT",
+              "VOICEMAIL",
+              "DNC",
+              "NO_RESPONSE",
+              "DROPPED",
+              "TECH_ERROR"
+            ],
+            "title": "Outcome",
+            "type": "string"
+          },
+          "notes": {
+            "default": "",
+            "maxLength": 500,
+            "title": "Notes",
+            "type": "string"
+          }
+        },
+        "required": [
+          "customer_id",
+          "outcome"
+        ],
+        "title": "Log",
+        "type": "object"
+      }
+    }
+  }
+]

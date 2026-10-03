@@ -1,0 +1,25 @@
+# Persistent SQLite needs a paid disk. This file does not provision anything until you deploy it.
+services:
+  - type: web
+    name: autopay-recovery-agent
+    runtime: docker
+    plan: starter
+    region: singapore
+    healthCheckPath: /health
+    numInstances: 1
+    autoDeployTrigger: checksPass
+    disk:
+      name: recovery-data
+      mountPath: /app/var
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_PATH
+        value: /app/var/recovery.db
+      - key: PROVIDER
+        value: mock
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: WEBHOOK_SECRET
+        generateValue: true
+      - key: PUBLIC_BASE_URL
+        sync: false

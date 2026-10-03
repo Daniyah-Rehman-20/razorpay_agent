@@ -177,6 +177,7 @@ Push this repository to GitHub, open Render → New → Blueprint, select the re
 
 For a temporary free preview, manually create a free web service without the disk and treat the database as disposable. It is unsuitable for real opt-out retention or unattended schedules. Local running plus ngrok avoids that limitation without Docker.
 
+<<<<<<< HEAD
 ## GitHub repository
 
 Source repository: https://github.com/Daniyah-Rehman-20/razorpay_agent
@@ -189,6 +190,20 @@ cd razorpay_agent
 Follow the Windows/local setup above after cloning. The repository includes all source code, tests, deployment files and `docs/Autopay_Recovery_Project_Guide.docx`. The guide records the build-stage status before this upload; repository creation and source publication have since been completed. Real voice calls and cloud deployment still require configuration.
 
 GitHub Actions runs pytest on Python 3.11 and 3.12. Never commit `.env`, real phone numbers or runtime databases.
+=======
+## GitHub publication
+
+The source is ready to publish as a new private repository named `autopay-recovery-agent`. It must be created in your GitHub account; an existing repo is never overwritten. With the GitHub CLI installed and authenticated:
+
+```bash
+git init -b main
+git add .
+git commit -m "Build autopay recovery voice agent demo"
+gh repo create Daniyah-Rehman-20/autopay-recovery-agent --private --source=. --push
+```
+
+Inspect `git status --short` and `.gitignore` first. Never add `.env` or a real customer database. GitHub Actions runs pytest on Python 3.11 and 3.12 after publishing.
+>>>>>>> 8dbc55a (Add complete Razorpay Autopay Recovery Agent project)
 
 ## Design and deliberate prompt changes
 

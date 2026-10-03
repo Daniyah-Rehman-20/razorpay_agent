@@ -1,0 +1,2 @@
+'use strict';
+document.getElementById('pay').onclick=async()=>{const b=document.getElementById('pay');b.disabled=true;try{const r=await fetch(location.pathname,{method:'POST'});const d=await r.json();if(!r.ok)throw new Error(d.error||'Payment could not be completed');document.getElementById('pay-result').textContent=d.message;b.textContent='Demo payment completed'}catch(e){document.getElementById('pay-result').textContent=e.message;b.disabled=false}};
